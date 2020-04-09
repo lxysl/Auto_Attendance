@@ -122,4 +122,4 @@ if __name__ == "__main__":
     schedule.every().day.at(sche).do(main, username, password, eai_sess, UUkey)
     while True:
         schedule.run_pending()
-        time.sleep(3600)
+        time.sleep(30)
