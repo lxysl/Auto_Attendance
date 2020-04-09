@@ -3,12 +3,12 @@ import datetime
 import getpass
 import os
 import time
+import schedule
 
 import json
 import re
 import requests
 import urllib3
-from apscheduler.schedulers.blocking import BlockingScheduler
 from halo import Halo
 
 
@@ -39,6 +39,8 @@ class DaKa(object):
             "enter": 'true',
         }
         res2 = self.sess.post(url=self.login_url, headers=header1, data=data, allow_redirects=False)
+        print(self.sess.headers)
+        print(res2.headers)
         self.cookie2 = res2.headers['Set-Cookie'].split(";")[0]
         self.header = {
             'Cookie': "eai-sess=" + self.eai_sess + ";" + "UUkey=" + self.UUkey + ";" + self.cookie1 + ";" + self.cookie2}
@@ -104,26 +106,20 @@ if __name__ == "__main__":
         configs = json.loads(open('./config.json', 'r', encoding='utf-8').read())
         username = configs["username"]
         password = configs["password"]
-        hour = configs["schedule"]["hour"]
-        minute = configs["schedule"]["minute"]
+        sche = configs["schedule"]
         eai_sess = configs["cookie"]["eai_sess"]
         UUkey = configs["cookie"]["UUkey"]
     else:
         username = input("👤 中南大学学工号: ")
         password = getpass.getpass('🔑 中南大学信息门户密码: ')
-        print("⏲  请输入定时时间（默认每天7:05）")
-        hour = input("\thour: ") or 7
-        minute = input("\tminute: ") or 5
-        eai_sess = input("\teai-sess: ")
-        UUkey = input("\tUUkey: ")
+        print("⏲  请输入定时时间（默认每天07:05）")
+        sche = input("\ttime: (注意格式07:05)") or "07:05"
+        eai_sess = input("请输入eai-sess cookie: ")
+        UUkey = input("请输入UUkey cookie: ")
 
     # Schedule task
-    scheduler = BlockingScheduler()
-    scheduler.add_job(main, 'cron', args=[username, password, eai_sess, UUkey], hour=hour, minute=minute)
-    print('⏰ 已启动定时程序，每天 %02d:%02d 为您打卡' % (int(hour), int(minute)))
-    print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
-
-    try:
-        scheduler.start()
-    except (KeyboardInterrupt, SystemExit):
-        pass
+    print('⏰ 已启动定时程序，每天 ' + sche + ' 为您打卡')
+    schedule.every().day.at(sche).do(main, username, password, eai_sess, UUkey)
+    while True:
+        schedule.run_pending()
+        time.sleep(3600)
