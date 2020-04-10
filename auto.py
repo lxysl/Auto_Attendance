@@ -3,7 +3,6 @@ import datetime
 import getpass
 import os
 import time
-import schedule
 
 import json
 import re
@@ -40,8 +39,6 @@ class DaKa(object):
             "enter": 'true',
         }
         res2 = self.sess.post(url=self.login_url, headers=header1, data=data, allow_redirects=False)
-        print(self.sess.headers)
-        print(res2.headers)
         self.cookie2 = res2.headers['Set-Cookie'].split(";")[0]
         self.header = {
             'Cookie': "eai-sess=" + self.eai_sess + ";" + "UUkey=" + self.UUkey + ";" + self.cookie1 + ";" + self.cookie2}
