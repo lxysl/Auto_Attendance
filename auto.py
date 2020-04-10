@@ -9,6 +9,7 @@ import json
 import re
 import requests
 import urllib3
+from apscheduler.schedulers.blocking import BlockingScheduler
 from halo import Halo
 
 
@@ -106,20 +107,26 @@ if __name__ == "__main__":
         configs = json.loads(open('./config.json', 'r', encoding='utf-8').read())
         username = configs["username"]
         password = configs["password"]
-        sche = configs["schedule"]
+        hour = configs["schedule"]["hour"]
+        minute = configs["schedule"]["minute"]
         eai_sess = configs["cookie"]["eai_sess"]
         UUkey = configs["cookie"]["UUkey"]
     else:
         username = input("👤 中南大学学工号: ")
         password = getpass.getpass('🔑 中南大学信息门户密码: ')
-        print("⏲  请输入定时时间（默认每天07:05）")
-        sche = input("\ttime: (注意格式07:05)") or "07:05"
+        print("⏲ 请输入定时时间（默认每天7:05）")
+        hour = input("\thour: ") or 7
+        minute = input("\tminute: ") or 5
         eai_sess = input("请输入eai-sess cookie: ")
         UUkey = input("请输入UUkey cookie: ")
 
     # Schedule task
-    print('⏰ 已启动定时程序，每天 ' + sche + ' 为您打卡')
-    schedule.every().day.at(sche).do(main, username, password, eai_sess, UUkey)
-    while True:
-        schedule.run_pending()
-        time.sleep(30)
+    scheduler = BlockingScheduler()
+    scheduler.add_job(main, 'cron', args=[username, password, eai_sess, UUkey], hour=hour, minute=minute)
+    print('⏰ 已启动定时程序，每天 %02d:%02d 为您打卡' % (int(hour), int(minute)))
+    print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
+
+    try:
+        scheduler.start()
+    except (KeyboardInterrupt, SystemExit):
+        pass
