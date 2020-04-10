@@ -2,8 +2,6 @@
 
 ## Description
 
----
-
 特此声明：项目用于学习交流，仅用于各项无异常时打卡，如有身体不适等情况还请自行如实打卡！
 
 * 可定时，默认为每天6点5分
@@ -14,8 +12,6 @@
 ## Usage
 
 ### Linux
-
-----
 
 1. clone本项目（为了加快clone速度，可以指定clone深度`--depth 1`，只克隆最近一次commit），并cd到本目录
     ```bash
@@ -54,8 +50,6 @@
 
 ### Windows
 
----
-
 1. 通过GitHub下载本项目的Zip压缩包，或直接点击下方链接进行下载
 
    [Download Zip](https://github.com/lxy764139720/Auto_Attendance/archive/master.zip)
@@ -88,8 +82,6 @@
 4. 双击auto.py即可启动定时自动打卡脚本
 
 ## Cookie
-
----
 
 获取eai-sess和UUkey
 
