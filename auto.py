@@ -53,7 +53,7 @@ class DaKa(object):
 
         jsontext = re.findall(r'oldInfo: [\s\S]*tipMsg', html)[0]
         jsontext = eval(jsontext[jsontext.find("{"):jsontext.rfind(",")].replace(" ", ""))
-        jsontext["geo_api_info"] = json.loads(jsontext["geo_api_info"])
+        # jsontext["geo_api_info"] = json.loads(jsontext["geo_api_info"])
         name = re.findall(r'realname: "([^\"]+)",', html)[0]
         number = re.findall(r"number: '([^\']+)',", html)[0]
 
