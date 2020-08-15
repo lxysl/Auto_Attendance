@@ -107,7 +107,5 @@ if __name__ == "__main__":
     parser.add_argument('--eai-sess', type=str, default=None)
     parser.add_argument('--UUkey', type=str, default=None)
     args = parser.parse_args()
-    try:
-        main(args.username, args.password, args.eai_sess, args.UUkey)
-    except Exception as e:
-        print("启动失败")
+    main(args.username, args.password, args.eai_sess, args.UUkey)
+
