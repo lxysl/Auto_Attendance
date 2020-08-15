@@ -52,15 +52,20 @@ class DaKa(object):
             res = self.sess.get(self.base_url, headers=self.header, verify=False)
             html = res.content.decode()
 
-        jsontext = re.findall(r'oldInfo: [\s\S]*tipMsg', html)[0]
-        jsontext = eval(jsontext[jsontext.find("{"):jsontext.rfind(",")].replace(" ", ""))
-        # jsontext["geo_api_info"] = json.loads(jsontext["geo_api_info"])
+        jsontext = re.findall(r'def = {[\s\S]*?};', html)[0]
+        jsontext = eval(jsontext[jsontext.find("{"):jsontext.rfind(";")].replace(" ", ""))
+
+        geo_text = jsontext['geo_api_info']
+        geo_text = geo_text.replace("false", "False").replace("true", "True")
+        geo_obj = eval(geo_text)['addressComponent']
+        area = geo_obj['province'] + " " + geo_obj['city'] + " " + geo_obj['district']
         name = re.findall(r'realname: "([^\"]+)",', html)[0]
         number = re.findall(r"number: '([^\']+)',", html)[0]
 
         new_info = jsontext.copy()
         new_info['name'] = name
         new_info['number'] = number
+        new_info['area'] = area
         new_info["date"] = self.get_date()
         new_info["created"] = round(time.time())
         self.info = new_info
