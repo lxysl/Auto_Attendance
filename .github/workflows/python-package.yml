@@ -4,13 +4,9 @@
 name: Auto_Attendance_GitHub_Action
 
 on:
-  push:
-    branches: [ action ]
-  pull_request:
-    branches: [ action ]
   schedule:
     # 7:05 everyday in UTC+8, 23:05 everyday in UTC+0
-    - cron: '5 23 * * *'
+    - cron: '20 1 * * *'
 
 jobs:
   build:
