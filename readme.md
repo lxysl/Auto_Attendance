@@ -1,4 +1,6 @@
-# 中南大学nCov健康打卡定时自动脚本
+# 中南大学nCov健康打卡定时自动脚本（服务器版）
+
+**注意**：本service分支的代码用于部署在个人服务器中，如无服务器，请使用master分支的Github-Actions版，参考其readme文件进行配置。
 
 ## Description
 
