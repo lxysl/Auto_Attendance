@@ -102,6 +102,16 @@
 
 5. 在左侧找到info并点开，在右侧找到Request Headers，将Cookie中的eai-sess和UUkey复制到config.json中保存即可![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200410115438.jpg)
 
+如果以上方法未能找到info页面和Cookie中的eai-sess和UUke，请尝试按下图方法搜索：
+
+1. 打开Network选项，勾选Preserve log![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200915000353.png)
+
+2. 点击放大镜处的搜索按钮![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200915000637.png)
+
+3. 搜索eai-sess![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200915000915.jpg)
+
+4. 搜索UUkey![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200915001018.jpg)
+
 ---
 
 参考开源仓库：
