@@ -2,25 +2,18 @@
 
 **注意**：本master分支版本代码使用Github-Actions定时运行，无需部署在服务器。如需在服务器中运行，请使用service分支中的代码。
 
+如本项目对您有所帮助，请帮忙点一个⭐star支持一下作者。如有任何问题欢迎提交issue与我联系。
+
 ## Description
 
 **特此声明**：项目用于学习交流，仅用于各项无异常时打卡，如有身体不适等情况还请自行如实打卡！
 
-* 可[设置自动打卡时间](#dksj)，本副本为每天7点5分
+* 可[设置自动打卡时间](#dksj)，默认为每天7点5分
 * 默认每次提交上次所提交的内容（只有时间部分更新）
-* 增加手动打卡，解决项目创建不能立即执行一次的问题
+* 位置信息与上一次打卡的位置相同，如需变更，可以在当天打卡时间前手动定位打卡，之后的位置信息会随之改变
+* Github-Actions打卡失败时会通过Github通知邮件发送至绑定的邮箱（需要手动设置Github账号绑定的邮箱）
 
-* **1. 在Action 的该Workflows中的右上角看到启动按钮**
-
-   如果没有看后文自行[添加手动运行选项](#sdyx)
-
-![](https://github.com/sumowi/sumowi.github.io/blob/master/image/2.png)  
-
-* **2. 点击打了√（成功）或者×（失败）的运行结果可以查看启动详情**
-
-![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817185806.png)	
-
-* **3. 成功运行会在【Run app】中显示“打卡成功”或者“今天已经打卡”**
+![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817185806.png)
 
 ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817190036.png)	
 
@@ -73,6 +66,8 @@
 
 3. 启动定时打卡
 
+    方法一：修改Readme以自动触发Github-Actions工作流
+
     进入Code页面，点击修改按钮
 
     ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817191741.png)
@@ -80,6 +75,16 @@
     在readme文件中随意修改任意字符（比如加个空格），然后点击下方的Commit Changes即可激活每日定时打卡脚本
 
     ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817192122.png)
+
+    方法二：手动开启工作流
+
+    进入Actions页面，点击该工作流，点击Run workflow按钮
+
+    ![](https://github.com/sumowi/sumowi.github.io/blob/master/image/2.png)  
+
+    手动开启工作流的功能由[@sumowi]([sumowi (github.com)](https://github.com/sumowi))通过/.github/workflows/python-package.yml文件中的workflow_dispatch实现
+
+    ![](https://github.com/sumowi/sumowi.github.io/blob/master/image/1.png)  
 
 4. 查看运行情况
 
@@ -99,16 +104,12 @@
 
 ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817194250.png)
 
-## <span id="sdyx">添加手动运行选项</span> 
-
-在/.github/workflows/python-package.yml文件的 "on:" 下添加 "workflow_dispatch:" 选项即可开启手动运行按钮
-
-![](https://github.com/sumowi/sumowi.github.io/blob/master/image/1.png)  
-
 ---
-如本项目对您有所帮助，请帮忙点一个⭐star支持一下作者。如有任何问题欢迎提交issue与我联系。
-
 参考开源仓库：
 
 1. [浙大nCov健康打卡定时自动脚本](https://github.com/Tishacy/ZJU-nCov-Hitcarder)
 2. [北京化工大学COVID-19自动填报脚本](https://github.com/W0n9/BUCT_nCoV_Report)
+
+鸣谢：
+
+[@sumowi]([sumowi (github.com)](https://github.com/sumowi))
