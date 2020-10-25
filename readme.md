@@ -2,16 +2,20 @@
 
 **注意**：本master分支版本代码使用Github-Actions定时运行，无需部署在服务器。如需在服务器中运行，请使用service分支中的代码。
 
+如本项目对您有所帮助，请帮忙点一个⭐star支持一下作者。如有任何问题欢迎提交issue与我联系。
+
 ## Description
 
 **特此声明**：项目用于学习交流，仅用于各项无异常时打卡，如有身体不适等情况还请自行如实打卡！
 
-* 可定时，默认为每天7点5分
+* 可[设置自动打卡时间](#dksj)，默认为每天7点5分
 * 默认每次提交上次所提交的内容（只有时间部分更新）
+* 位置信息与上一次打卡的位置相同，如需变更，可以在当天打卡时间前手动定位打卡，之后的位置信息会随之改变
+* Github-Actions打卡失败时会通过Github通知邮件发送至绑定的邮箱（需要手动设置Github账号绑定的邮箱）
 
 ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817185806.png)
 
-![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817190036.png)
+![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817190036.png)	
 
 ## Usage
 
@@ -62,6 +66,8 @@
 
 3. 启动定时打卡
 
+    方法一：修改Readme以自动触发Github-Actions工作流
+
     进入Code页面，点击修改按钮
 
     ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817191741.png)
@@ -70,13 +76,23 @@
 
     ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817192122.png)
 
+    方法二：手动开启工作流
+
+    进入Actions页面，点击该工作流，点击Run workflow按钮
+
+    ![](https://github.com/sumowi/sumowi.github.io/blob/master/image/2.png)  
+
+    手动开启工作流的功能由[@sumowi]([sumowi (github.com)](https://github.com/sumowi))通过/.github/workflows/python-package.yml文件中的workflow_dispatch实现
+
+    ![](https://github.com/sumowi/sumowi.github.io/blob/master/image/1.png)  
+
 4. 查看运行情况
 
     打开Actions页面，此时在workflows中应该出现了正在运行的工作流。当提交文件时会马上进行一次打卡，以后将会默认在每天的7:05进行打卡
 
     ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817192416.png)
 
-## 修改打卡时间
+## <span id="dksj">修改打卡时间</span>
 
 打开项目中的/.github/workflows/python-package.yml文件，修改corn中的值，注意使用UTC零区时间。
 
@@ -89,10 +105,11 @@
 ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817194250.png)
 
 ---
-
-如本项目对您有所帮助，请帮忙点一个⭐star支持一下作者。如有任何问题欢迎提交issue与我联系。
-
 参考开源仓库：
 
 1. [浙大nCov健康打卡定时自动脚本](https://github.com/Tishacy/ZJU-nCov-Hitcarder)
 2. [北京化工大学COVID-19自动填报脚本](https://github.com/W0n9/BUCT_nCoV_Report)
+
+鸣谢：
+
+[@sumowi]([sumowi (github.com)](https://github.com/sumowi))
