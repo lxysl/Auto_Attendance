@@ -82,7 +82,7 @@
 
     ![](https://github.com/sumowi/sumowi.github.io/blob/master/image/2.png)  
 
-    手动开启工作流的功能由[@sumowi]([sumowi (github.com)](https://github.com/sumowi))通过/.github/workflows/python-package.yml文件中的workflow_dispatch实现
+    手动开启工作流的功能由[@sumowi](https://github.com/sumowi)通过/.github/workflows/python-package.yml文件中的workflow_dispatch实现
 
     ![](https://github.com/sumowi/sumowi.github.io/blob/master/image/1.png)  
 
@@ -112,4 +112,4 @@
 
 鸣谢：
 
-[@sumowi]([sumowi (github.com)](https://github.com/sumowi))
+[@sumowi](https://github.com/sumowi)
