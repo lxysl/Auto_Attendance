@@ -8,10 +8,22 @@
 
 * 可定时，本副本为每天0点5分
 * 默认每次提交上次所提交的内容（只有时间部分更新）
+* 增加手动打卡，解决项目创建不能立即执行一次的问题
+
+* **1. 在Action 的该Workflows中的右上角看到启动按钮**
+
+如果没有看后文自行添加
+
+![](https://github.com/sumowi/sumowi.github.io/blob/master/image/2.png)  
+
+* **2. 点击打了√（成功）或者×（失败）的运行结果可以查看启动详情**
 
 ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817185806.png)	
 
+* **3. 成功运行会在【Run app】中显示“打卡成功”或者“今天已经打卡”**
+
 ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817190036.png)	
+
 ## Usage
 
 ## 获取Cookie
@@ -87,8 +99,13 @@
 
 ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817194250.png)
 
----
+## 添加手动运行选项
 
+在/.github/workflows/python-package.yml文件的 "on:" 下添加 "workflow_dispatch:" 选项即可开启手动运行按钮
+
+![](https://github.com/sumowi/sumowi.github.io/blob/master/image/1.png)  
+
+---
 如本项目对您有所帮助，请帮忙点一个⭐star支持一下作者。如有任何问题欢迎提交issue与我联系。
 
 参考开源仓库：
