@@ -12,7 +12,7 @@
 
 * **1. 在Action 的该Workflows中的右上角看到启动按钮**
 
-如果没有看后文自行添加
+   如果没有看后文自行[添加手动运行选项](#sdyx)
 
 ![](https://github.com/sumowi/sumowi.github.io/blob/master/image/2.png)  
 
@@ -99,7 +99,7 @@
 
 ![](https://raw.githubusercontent.com/lxy764139720/Figurebed/master/img/20200817194250.png)
 
-## 添加手动运行选项
+## <span id="sdyx">添加手动运行选项</span> 
 
 在/.github/workflows/python-package.yml文件的 "on:" 下添加 "workflow_dispatch:" 选项即可开启手动运行按钮
 
