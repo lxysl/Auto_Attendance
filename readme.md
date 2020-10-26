@@ -15,9 +15,9 @@
 
 ### Linux
 
-1. clone本项目（为了加快clone速度，可以指定clone深度`--depth 1`，只克隆最近一次commit），并cd到本目录，并切换到service分支
+1. clone本项目，cd到本目录，并切换到service分支
     ```bash
-    $ git clone https://github.com/lxy764139720/Auto_Attendance.git --depth 1
+    $ git clone https://github.com/lxy764139720/Auto_Attendance.git
     $ cd Auto_Attendance
     $ git checkout service
     ```
