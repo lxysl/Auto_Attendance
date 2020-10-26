@@ -59,12 +59,8 @@ class DaKa(object):
         geo_text = geo_text.replace("false", "False").replace("true", "True")
         geo_obj = eval(geo_text)['addressComponent']
         area = geo_obj['province'] + " " + geo_obj['city'] + " " + geo_obj['district']
-        name = re.findall(r'realname: "([^\"]+)",', html)[0]
-        number = re.findall(r"number: '([^\']+)',", html)[0]
 
         new_info = jsontext.copy()
-        new_info['name'] = name
-        new_info['number'] = number
         new_info['area'] = area
         new_info["date"] = self.get_date()
         new_info["created"] = round(time.time())
@@ -95,7 +91,6 @@ def main(username, password, eai_sess, UUkey):
 
     spinner.start(text='正在获取个人信息...')
     dk.get_info()
-    spinner.succeed('%s %s同学, 你好~' % (dk.info['number'], dk.info['name']))
 
     spinner.start(text='正在为您打卡打卡打卡')
     res = dk.post()
