@@ -14,42 +14,50 @@ from halo import Halo
 
 
 class DaKa(object):
-    def __init__(self, username, password, eai_sess, UUkey):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.login_url = "http://ca.its.csu.edu.cn/home/login/215"
-        self.redirect_url = "http://ca.its.csu.edu.cn/SysInfo/SsoService/215"
+        self.login_url = "http://ca.its.csu.edu.cn/Home/Login/215"
+        self.validate_url = "https://wxxy.csu.edu.cn/a_csu/api/sso/validate"
         self.base_url = "https://wxxy.csu.edu.cn/ncov/wap/default/index"
         self.save_url = "https://wxxy.csu.edu.cn/ncov/wap/default/save"
-        self.eai_sess = eai_sess
-        self.UUkey = UUkey
-        self.cookie1 = None
-        self.cookie2 = None
-        self.header = None
         self.info = None
         self.sess = requests.Session()
 
     def login(self):
-        """Login to CSU platform"""
-        res1 = self.sess.get(self.login_url)
-        self.cookie1 = res1.headers['Set-Cookie'].split(";")[0]
-        header1 = {'Cookie': self.cookie1}
-        data = {
+        """Login to CSU platform and verify"""
+        data1 = {
             "userName": self.username,
             "passWord": self.password,
-            "enter": 'true',
+            "enter": 'true'
         }
-        res2 = self.sess.post(url=self.login_url, headers=header1, data=data, allow_redirects=False)
-        self.cookie2 = res2.headers['Set-Cookie'].split(";")[0]
-        self.header = {
-            'Cookie': "eai-sess=" + self.eai_sess + ";" + "UUkey=" + self.UUkey + ";" + self.cookie1 + ";" + self.cookie2}
+        res2 = None
+        try:
+            res2 = self.sess.post(url=self.login_url, data=data1)
+        except:
+            print("无法连接信网中心")
+        if res2 is None:
+            print("请检查账号密码是否正确")
+
+        regex = r'tokenId.*value="(?P<tokenId>\w+)".*account.*value="(?P<account>\w+)".*Thirdsys.*value="(' \
+                r'?P<Thirdsys>\w+)" '
+        re_result = re.search(regex, res2.text)
+        data2 = {
+            "tokenId": re_result["tokenId"],
+            "account": re_result["account"],
+            "Thirdsys": re_result["Thirdsys"]
+        }
+        try:
+            self.sess.post(self.validate_url, data=data2)
+        except:
+            print("无法通过信网中心认证")
         return self.sess
 
     def get_info(self, html=None):
         """Get hitcard info, which is the old info with updated new time."""
         if not html:
             urllib3.disable_warnings()
-            res = self.sess.get(self.base_url, headers=self.header, verify=False)
+            res = self.sess.get(self.base_url, verify=False)
             html = res.content.decode()
 
         jsontext = re.findall(r'def = {[\s\S]*?};', html)[0]
@@ -77,16 +85,16 @@ class DaKa(object):
 
     def post(self):
         """Post the hitcard info"""
-        res = self.sess.post(self.save_url, data=self.info, headers=self.header)
+        res = self.sess.post(self.save_url, data=self.info)
         return json.loads(res.text)
 
 
-def main(username, password, eai_sess, UUkey):
+def main(username, password):
     print("\n[Time] %s" % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     print("🚌 打卡任务启动")
     spinner = Halo(text='Loading', spinner='dots')
     spinner.start('正在新建打卡实例...')
-    dk = DaKa(username, password, eai_sess, UUkey)
+    dk = DaKa(username, password)
     spinner.succeed('已新建打卡实例')
 
     spinner.start(text='登录到中南大学信息门户...')
@@ -95,7 +103,7 @@ def main(username, password, eai_sess, UUkey):
 
     spinner.start(text='正在获取个人信息...')
     dk.get_info()
-    spinner.succeed('%s %s同学, 你好~' % (dk.info['number'], dk.info['name']))
+    spinner.succeed('学号末尾为%s的%s同学, 你好~' % (dk.info['number'][-4:], dk.info['name'][0]))
 
     spinner.start(text='正在为您打卡打卡打卡')
     res = dk.post()
@@ -109,8 +117,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='manual to this script')
     parser.add_argument('--username', type=str, default=None)
     parser.add_argument('--password', type=str, default=None)
-    parser.add_argument('--eai-sess', type=str, default=None)
-    parser.add_argument('--UUkey', type=str, default=None)
     args = parser.parse_args()
     print("用户信息：", args)
-    main(args.username, args.password, args.eai_sess, args.UUkey)
+    main(args.username, args.password)
