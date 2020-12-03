@@ -13,42 +13,50 @@ from halo import Halo
 
 
 class DaKa(object):
-    def __init__(self, username, password, eai_sess, UUkey):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.login_url = "http://ca.its.csu.edu.cn/home/login/215"
-        self.redirect_url = "http://ca.its.csu.edu.cn/SysInfo/SsoService/215"
+        self.login_url = "http://ca.its.csu.edu.cn/Home/Login/215"
+        self.validate_url = "https://wxxy.csu.edu.cn/a_csu/api/sso/validate"
         self.base_url = "https://wxxy.csu.edu.cn/ncov/wap/default/index"
         self.save_url = "https://wxxy.csu.edu.cn/ncov/wap/default/save"
-        self.eai_sess = eai_sess
-        self.UUkey = UUkey
-        self.cookie1 = None
-        self.cookie2 = None
-        self.header = None
         self.info = None
         self.sess = requests.Session()
 
     def login(self):
-        """Login to CSU platform"""
-        res1 = self.sess.get(self.login_url)
-        self.cookie1 = res1.headers['Set-Cookie'].split(";")[0]
-        header1 = {'Cookie': self.cookie1}
-        data = {
+        """Login to CSU platform and verify"""
+        data1 = {
             "userName": self.username,
             "passWord": self.password,
-            "enter": 'true',
+            "enter": 'true'
         }
-        res2 = self.sess.post(url=self.login_url, headers=header1, data=data, allow_redirects=False)
-        self.cookie2 = res2.headers['Set-Cookie'].split(";")[0]
-        self.header = {
-            'Cookie': "eai-sess=" + self.eai_sess + ";" + "UUkey=" + self.UUkey + ";" + self.cookie1 + ";" + self.cookie2}
+        res2 = None
+        try:
+            res2 = self.sess.post(url=self.login_url, data=data1)
+        except:
+            print("无法连接信网中心")
+        if res2 is None:
+            print("请检查账号密码是否正确")
+
+        regex = r'tokenId.*value="(?P<tokenId>\w+)".*account.*value="(?P<account>\w+)".*Thirdsys.*value="(' \
+                r'?P<Thirdsys>\w+)" '
+        re_result = re.search(regex, res2.text)
+        data2 = {
+            "tokenId": re_result["tokenId"],
+            "account": re_result["account"],
+            "Thirdsys": re_result["Thirdsys"]
+        }
+        try:
+            self.sess.post(self.validate_url, data=data2)
+        except:
+            print("无法通过信网中心认证")
         return self.sess
 
     def get_info(self, html=None):
         """Get hitcard info, which is the old info with updated new time."""
         if not html:
             urllib3.disable_warnings()
-            res = self.sess.get(self.base_url, headers=self.header, verify=False)
+            res = self.sess.get(self.base_url, verify=False)
             html = res.content.decode()
 
         jsontext = re.findall(r'def = {[\s\S]*?};', html)[0]
@@ -76,16 +84,16 @@ class DaKa(object):
 
     def post(self):
         """Post the hitcard info"""
-        res = self.sess.post(self.save_url, data=self.info, headers=self.header)
+        res = self.sess.post(self.save_url, data=self.info)
         return json.loads(res.text)
 
 
-def main(username, password, eai_sess, UUkey):
+def main(username, password):
     print("\n[Time] %s" % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     print("🚌 打卡任务启动")
     spinner = Halo(text='Loading', spinner='dots')
     spinner.start('正在新建打卡实例...')
-    dk = DaKa(username, password, eai_sess, UUkey)
+    dk = DaKa(username, password)
     spinner.succeed('已新建打卡实例')
 
     spinner.start(text='登录到中南大学信息门户...')
@@ -111,20 +119,16 @@ if __name__ == "__main__":
         password = configs["password"]
         hour = configs["schedule"]["hour"]
         minute = configs["schedule"]["minute"]
-        eai_sess = configs["cookie"]["eai_sess"]
-        UUkey = configs["cookie"]["UUkey"]
     else:
         username = input("👤 中南大学学工号: ")
         password = getpass.getpass('🔑 中南大学信息门户密码: ')
         print("⏲ 请输入定时时间（默认每天7:05）")
         hour = input("\thour: ") or 7
         minute = input("\tminute: ") or 5
-        eai_sess = input("请输入eai-sess cookie: ")
-        UUkey = input("请输入UUkey cookie: ")
 
     # Schedule task
     scheduler = BlockingScheduler()
-    scheduler.add_job(main, 'cron', args=[username, password, eai_sess, UUkey], hour=hour, minute=minute)
+    scheduler.add_job(main, 'cron', args=[username, password], hour=hour, minute=minute)
     print('⏰ 已启动定时程序，每天 %02d:%02d 为您打卡' % (int(hour), int(minute)))
     print('Press Ctrl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 

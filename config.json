@@ -4,9 +4,5 @@
   "schedule": {
     "hour": "7",
     "minute": "5"
-  },
-  "cookie": {
-    "eai_sess": "你的eai-sess cookie",
-    "UUkey": "你的UUkey cookie"
   }
 }
