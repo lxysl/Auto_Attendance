@@ -36,21 +36,29 @@ class DaKa(object):
             res2 = self.sess.post(url=self.login_url, data=data1)
         except:
             print("无法连接信网中心")
+            exit(1)
         if res2 is None:
             print("请检查账号密码是否正确")
+            exit(1)
 
         regex = r'tokenId.*value="(?P<tokenId>\w+)".*account.*value="(?P<account>\w+)".*Thirdsys.*value="(' \
                 r'?P<Thirdsys>\w+)" '
-        re_result = re.search(regex, res2.text)
-        data2 = {
-            "tokenId": re_result["tokenId"],
-            "account": re_result["account"],
-            "Thirdsys": re_result["Thirdsys"]
-        }
+        data2 = None
+        try:
+            re_result = re.search(regex, res2.text)
+            data2 = {
+                "tokenId": re_result["tokenId"],
+                "account": re_result["account"],
+                "Thirdsys": re_result["Thirdsys"]
+            }
+        except:
+            print("请检查账号密码是否正确")
+            exit(1)
         try:
             self.sess.post(self.validate_url, data=data2)
         except:
             print("无法通过信网中心认证")
+            exit(1)
         return self.sess
 
     def get_info(self, html=None):
