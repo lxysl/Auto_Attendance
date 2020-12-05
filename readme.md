@@ -15,9 +15,9 @@
 * Github-Actions打卡失败时会通过Github通知邮件发送至绑定的邮箱（需要手动设置Github账号绑定的邮箱）
 * 您的学号和密码均以秘钥形式保存在您的Github仓库中，其他人无法查看
 
-![20201206004225](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206004225.png)
+![](https://i.loli.net/2020/12/06/qG5X4pUNYyTDaCz.png)
 
-![20201206004445](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206004445.png)
+![20200817190036](https://i.loli.net/2020/12/06/e5zZgs6BFDN3IUA.png)
 
 ## Usage
 
@@ -30,7 +30,7 @@
     从Github中进入刚刚fork到你的个人账号下的本项目，打开项目的Settings->Secrets页面
     
 
-![20201206004700666](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206004701.png)
+![20201206004701](https://i.loli.net/2020/12/06/cegmk76uprEvHU5.png)
 
 * 点击New repository Secret按钮创建第一个仓库密码
 
@@ -46,7 +46,7 @@
 
     进入Actions页面，点击该工作流，点击Run workflow按钮
 
-    ![20201206004905](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206004905.png)
+    ![eIhPdkpV6QqzbJ1](https://i.loli.net/2020/12/06/eIhPdkpV6QqzbJ1.png)
 
     手动开启工作流的功能由[@sumowi](https://github.com/sumowi)通过/.github/workflows/python-package.yml文件中的workflow_dispatch实现
 
@@ -54,17 +54,19 @@
 
     进入Code页面，点击修改按钮
 
-    ![20200817191741](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206004952.png)
+    ![20200817191741](https://i.loli.net/2020/12/06/DHy13dsNSxrchVz.png)
 
     在readme文件中随意修改任意字符（比如加个空格），然后点击下方的Commit Changes即可激活每日定时打卡脚本
 
-    ![20200817192122](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206005001.png)
+    ![20200817192122](https://i.loli.net/2020/12/06/1W6x2wIBOTCVl7K.png)
 
 4. 查看运行情况
 
     打开Actions页面，此时在workflows中应该出现了正在运行的工作流。当提交文件时会马上进行一次打卡，以后将会默认在每天的7:05进行打卡
 
-    ![20200817192416](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206005011.png)
+    如果打卡失败请重新运行workflows并检查账号密码设置是否正确
+    
+    ![20200817192416](https://i.loli.net/2020/12/06/P31tu5einhLpArk.png)
 
 ## <span id="dksj">修改打卡时间</span>
 
@@ -74,9 +76,9 @@
 
 更多关于时间的具体书写格式请参考[POSIX cron 语法](https://crontab.guru/)和[官方文档](https://docs.github.com/cn/actions/reference/events-that-trigger-workflows#)。
 
-![20200817194102](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206005022.png)
+![20200817194102](https://i.loli.net/2020/12/06/zqXQvYCJwfrN3Pc.png)
 
-![20200817194250](https://gitee.com/lxy764139720/my-figure-bed/raw/master/img/20201206005026.png)
+![20200817194250](https://i.loli.net/2020/12/06/oRjts1Yy5NV9TI8.png)
 
 ---
 参考开源仓库：
