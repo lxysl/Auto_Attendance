@@ -84,6 +84,8 @@ class DaKa(object):
         new_info['area'] = area
         new_info["date"] = self.get_date()
         new_info["created"] = round(time.time())
+        new_info['city'] = geo_obj['city']
+        new_info['address'] = eval(geo_text)['formattedAddress']
         self.info = new_info
         return new_info
 
