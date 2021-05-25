@@ -28,7 +28,8 @@ class DaKa:
             def __random_str(num):
                 chars = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678"
                 return ''.join([chars[randrange(len(chars))] for i in range(num)])
-            passwd_with_salt, iv = __random_str(64)+self.password, __random_str(16)
+
+            passwd_with_salt, iv = __random_str(64) + self.password, __random_str(16)
             self.aes_crypt = AESCrypt(self.key, mode, iv, passwd_with_salt)
             return self.aes_crypt.encrypt()
 
@@ -41,7 +42,7 @@ class DaKa:
             login_data = {
                 "username": self.username,
                 "password": __login_passwd_aes(),
-                "captcha": login_form.find("input", id="captcha")['value'],
+                "captcha": '',
                 "rememberMe": login_form.find("input", id="rememberMe")['value'],
                 "_eventId": login_form.find("input", id="_eventId")['value'],
                 "cllt": login_form.find("input", id="cllt")['value'],
@@ -49,8 +50,8 @@ class DaKa:
                 "lt": login_form.find("input", id="lt")['value'],
                 "execution": login_form.find("input", id="execution")['value']
             }
-            self.sess.post(self.login_url, data=login_data, allow_redirects=True) #session中cookies单点登录相关的key改变
-        except:
+            self.sess.post(self.login_url, data=login_data, allow_redirects=True)  # session中cookies单点登录相关的key改变
+        except Exception as e:
             print("中南大学统一登录过程出错")
             exit(1)
 
@@ -97,7 +98,7 @@ def main(username, password):
     print("4. 准备为%s同学打卡" % dk.info['name'])
     res = dk.post()
     if str(res['e']) == '0':
-        print('☑︎为%s打卡成功')
+        print('☑︎为%s打卡成功' % dk.info['name'])
     else:
         print('☒%s' % res['m'])
 
@@ -133,6 +134,7 @@ class AESCrypt:
         return retStr;
     }
     """
+
     def __init__(self, key, mode, iv, data):
         self.key = key.encode('utf-8')
         self.mode = mode
@@ -150,7 +152,7 @@ class AESCrypt:
         填充规则：如果长度不是block_num的倍数，余数使用余数进行补齐
         :return:
         """
-        pad = block_num - len(data.encode('utf-8'))%block_num
+        pad = block_num - len(data.encode('utf-8')) % block_num
         data = data + pad * chr(pad)
         return data.encode('utf-8')
 
