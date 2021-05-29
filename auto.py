@@ -67,7 +67,7 @@ class DaKa:
 
         jsontext = eval(data1[data1.find("{"):data1.rfind(";")].replace(" ", ""))
         geo_text = jsontext['geo_api_info']
-        geo_text = geo_text.replace("false", "False").replace("true", "True")
+        geo_text = geo_text.replace("false", "\"FALSE\"").replace("true", "\"TRUE\"").replace("null","\"NULL\"")
         geo_obj = eval(geo_text)['addressComponent']
         area = geo_obj['province'] + " " + geo_obj['city'] + " " + geo_obj['district']
         name = re.findall(r'realname: "([^\"]+)",', content1)[0]
