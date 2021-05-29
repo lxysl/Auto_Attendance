@@ -95,10 +95,10 @@ def main(username, password):
     dk.login()
     print("3. 获取打卡信息")
     dk.get_info()
-    print("4. 准备为%s同学打卡" % dk.info['name'])
+    print("4. 准备为学号末尾为%s的同学打卡" % dk.info['number'][-3:])
     res = dk.post()
     if str(res['e']) == '0':
-        print('☑︎为%s打卡成功' % dk.info['name'])
+        print('☑︎为%s同学打卡成功' % dk.info['number'][-3:])
     else:
         print('☒%s' % res['m'])
 
