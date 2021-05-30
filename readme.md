@@ -10,7 +10,7 @@
 
 * [**本次更新内容**]由[@adamqqq](https://github.com/adamqqqplay)修复了Json解析问题，增强了隐私性
 * 由[@hidragonma](https://github.com/hidragonma)修复了[五一节后的打卡故障](https://github.com/hidragonma)，感谢贡献代码！
-* 仅需输入中南大学学工号和中南大学信息门户密码即可进行自动打卡（不再需要手动获取cookie）
+* 仅需输入[***中南大学统一身份认证平台***](http://ca.csu.edu.cn/authserver/login)的账号和密码即可进行自动打卡（不再需要手动获取cookie）
 * 可[设置自动打卡时间](#dksj)，默认为每天7点5分
 * 默认每次提交上次所提交的内容（只有日期部分更新）
 * **位置信息与上一次打卡的位置相同**，即使下次打卡时您的定位改变也不会对打卡位置造成影响。如需变更打卡位置，可以在当天打卡时间前手动定位打卡，之后的位置信息会随之改变
@@ -36,11 +36,11 @@
 
 * 点击New repository Secret按钮创建第一个仓库密码
 
-  在Name栏中输入大写字符串 **USERNAME** ，在Value栏中输入你的中南大学学工号，点击Add secret按钮保存
+  在Name栏中输入大写字符串 **USERNAME** ，在Value栏中输入你的[**中南大学统一身份认证平台**](http://ca.csu.edu.cn/authserver/login)的账号，点击Add secret按钮保存
 
 * 再次点击New repository Secret按钮创建第二个仓库密码
 
-  在Name栏中输入大写字符串 **PASSWORD** ，在Value栏中输入你的中南大学信息门户密码，点击Add secret按钮保存
+  在Name栏中输入大写字符串 **PASSWORD** ，在Value栏中输入你的[**中南大学统一身份认证平台**](http://ca.csu.edu.cn/authserver/login)的密码，点击Add secret按钮保存
 
 3. 启动定时打卡
 
