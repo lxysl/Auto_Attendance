@@ -67,7 +67,7 @@ class DaKa:
 
         jsontext = eval(data1[data1.find("{"):data1.rfind(";")].replace(" ", ""))
         geo_text = jsontext['geo_api_info']
-        geo_text = geo_text.replace("false", "False").replace("true", "True")
+        geo_text = geo_text.replace("false", "\"FALSE\"").replace("true", "\"TRUE\"").replace("null","\"NULL\"")
         geo_obj = eval(geo_text)['addressComponent']
         area = geo_obj['province'] + " " + geo_obj['city'] + " " + geo_obj['district']
         name = re.findall(r'realname: "([^\"]+)",', content1)[0]
@@ -95,10 +95,10 @@ def main(username, password):
     dk.login()
     print("3. 获取打卡信息")
     dk.get_info()
-    print("4. 准备为%s同学打卡" % dk.info['name'])
+    print("4. 准备为学号末尾为%s的同学打卡" % dk.info['number'][-3:])
     res = dk.post()
     if str(res['e']) == '0':
-        print('☑︎为%s打卡成功' % dk.info['name'])
+        print('☑︎为%s同学打卡成功' % dk.info['number'][-3:])
     else:
         print('☒%s' % res['m'])
 
