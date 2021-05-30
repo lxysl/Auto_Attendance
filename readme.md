@@ -8,7 +8,8 @@
 
 **特此声明**：项目用于学习交流，仅用于各项无异常时打卡，如有身体不适等情况还请自行如实打卡！
 
-* [**本次更新内容**]由[@hidragonma](https://github.com/hidragonma)修复了[五一节后的打卡故障](https://github.com/hidragonma)，感谢贡献代码！
+* [**本次更新内容**]由[@adamqqq](https://github.com/adamqqqplay)修复了Json解析问题，增强了隐私性
+* 由[@hidragonma](https://github.com/hidragonma)修复了[五一节后的打卡故障](https://github.com/hidragonma)，感谢贡献代码！
 * 仅需输入中南大学学工号和中南大学信息门户密码即可进行自动打卡（不再需要手动获取cookie）
 * 可[设置自动打卡时间](#dksj)，默认为每天7点5分
 * 默认每次提交上次所提交的内容（只有日期部分更新）
@@ -92,3 +93,5 @@
 [@sumowi](https://github.com/sumowi)
 
 [@hidragonma](https://github.com/hidragonma)
+
+[@adamqqq](https://github.com/adamqqqplay)
