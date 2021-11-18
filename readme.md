@@ -1,7 +1,7 @@
 # 中南大学nCov健康打卡定时自动脚本（Github-Actions版）
 
 **注意**：本master分支版本代码使用Github-Actions定时运行，无需部署在服务器。~~如需在服务器中运行，请使用service分支中的代码。~~
-**注意服务器上无须使用service分支，使用master分支亦可**
+**服务器上无须使用service分支，使用master分支亦可**
 ## 服务器使用方法
 git clone本项目后，进入项目，执行以下命令
 ```shell
