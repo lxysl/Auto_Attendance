@@ -1,13 +1,17 @@
 # 中南大学nCov健康打卡定时自动脚本（Github-Actions版）
 
-**注意**：本master分支版本代码使用Github-Actions定时运行，无需部署在服务器。～～如需在服务器中运行，请使用service分支中的代码。～～
+**注意**：本master分支版本代码使用Github-Actions定时运行，无需部署在服务器。~~如需在服务器中运行，请使用service分支中的代码。~~
 **注意服务器上无须使用service分支，使用master分支亦可**
 ## 服务器使用方法
-git clone本项目后
+git clone本项目后，进入项目
 ```shell
 pip install -r requirements.txt
-nohup python3 -u runserver.py
+crontab -e
+按键盘上的i，调到最后一行，复制粘贴以下命令
+2 0 * * * nohup python3 -u auto.py --username=学号 --password=信息门户登陆密码 >out.log 2>&1 &
+然后按Esc,按英文:，输入wq，回车，服务器会在每晚00:02自动运行
 ```
+**注:以上为linux系统命令，请注意服务器时区，修改开头的2 0 * * * **
 
 如本项目对您有所帮助，请帮忙点一个⭐star支持一下作者。如果您想更进一步，可以点击💗Sponsor请我喝杯冰可乐。您的鼓励是我持续维护和优化本项目的最大动力。如有任何问题欢迎提交issue或discussion与我联系，在反馈前请仔细阅读Issues区的[使用说明](https://github.com/lxy764139720/Auto_Attendance/issues/13)哦。
 
