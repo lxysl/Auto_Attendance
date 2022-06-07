@@ -35,4 +35,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
         run: |
-          python3 auto.py --username=$username --password=$password
+          python3 auto.py@hmx --username=$username --password=$password
