@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Auto_Attendance_GitHub_Action
+name: Auto_Attendance_GitHub_Action_hmx
 
 on:
   workflow_dispatch:
@@ -35,4 +35,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
         run: |
-          python3 auto.py@hmx --username=$username --password=$password
+          python3 auto.py --username=$username --password=$password
