@@ -6,6 +6,8 @@ name: Auto_Attendance_GitHub_Action
 on:
   workflow_dispatch:
   push:
+    branches:    
+      - hmx
   schedule:
     # 07:05 everyday in UTC+8, 23:05 everyday in UTC+0
   - cron: '05 23 * * *'
